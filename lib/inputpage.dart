@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'bmiwidget.dart';
@@ -14,6 +15,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Color _currentMaleColor = inActiveCardColor;
   Color _currentFemaleColor = inActiveCardColor;
+  double _sliderValue = 200.0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,44 @@ class _InputPageState extends State<InputPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Expanded(
-                    child: BMIWidget(),
+                    child: BMIWidget(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'HEIGHT',
+                            style: klabelTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: <Widget>[
+                              Text(
+                                _sliderValue.round().toString(),
+                                style: TextStyle(fontSize: 50.0),
+                              ),
+                              Text(
+                                'cm',
+                                style: klabelTextStyle,
+                              )
+                            ],
+                          ),
+                          Slider(
+                            activeColor: Color(0xFFEb1555),
+                            //inactiveColor: inActiveCardColor,
+                            min: 100.0,
+                            max: 300.0,
+                            value: _sliderValue,
+                            onChanged: (sv) {
+                              setState(() {
+                               _sliderValue = sv; 
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
