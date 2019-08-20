@@ -3,12 +3,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'bmiwidget.dart';
 import 'iconcontentwidget.dart';
 
+const activeCardColor = Color(0xFF1D1E33);
+const inActiveCardColor = Color(0xFF111328);
+
 class InputPage extends StatefulWidget {
   @override
   _InputPageState createState() => _InputPageState();
 }
 
 class _InputPageState extends State<InputPage> {
+  Color _currentMaleColor = inActiveCardColor;
+  Color _currentFemaleColor = inActiveCardColor;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,18 +29,34 @@ class _InputPageState extends State<InputPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Expanded(
-                    child: BMIWidget(
-                      child: IconContentWidget(
-                        iconData: FontAwesomeIcons.mars,
-                        contentTitle: 'MALE',
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          genderWidgetSelected(Gender.male);
+                        });
+                      },
+                      child: BMIWidget(
+                        color: _currentMaleColor,
+                        child: IconContentWidget(
+                          iconData: FontAwesomeIcons.mars,
+                          contentTitle: 'MALE',
+                        ),
                       ),
                     ),
                   ),
                   Expanded(
-                    child: BMIWidget(
-                      child: IconContentWidget(
-                        iconData: FontAwesomeIcons.venus,
-                        contentTitle: 'FEMALE',
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          genderWidgetSelected(Gender.female);
+                        });
+                      },
+                      child: BMIWidget(
+                        color: _currentFemaleColor,
+                        child: IconContentWidget(
+                          iconData: FontAwesomeIcons.venus,
+                          contentTitle: 'FEMALE',
+                        ),
                       ),
                     ),
                   )
@@ -72,8 +94,24 @@ class _InputPageState extends State<InputPage> {
               child: Center(
                 child: Text('CALCULATE'),
               ),
-            )
+            ),
           ],
         ));
   }
+
+  void genderWidgetSelected(Gender genderSelected) {
+    switch (genderSelected) {
+      case Gender.male:
+        _currentMaleColor = activeCardColor;
+        _currentFemaleColor = inActiveCardColor;
+        break;
+      case Gender.female:
+        _currentMaleColor = inActiveCardColor;
+        _currentFemaleColor = activeCardColor;
+        break;
+      default:
+    }
+  }
 }
+
+enum Gender { male, female }
