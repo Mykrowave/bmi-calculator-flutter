@@ -100,17 +100,13 @@ class _InputPageState extends State<InputPage> {
   }
 
   void genderWidgetSelected(Gender genderSelected) {
-    switch (genderSelected) {
-      case Gender.male:
-        _currentMaleColor = activeCardColor;
-        _currentFemaleColor = inActiveCardColor;
-        break;
-      case Gender.female:
-        _currentMaleColor = inActiveCardColor;
-        _currentFemaleColor = activeCardColor;
-        break;
-      default:
-    }
+    
+    _currentMaleColor = genderSelected == Gender.male
+        ? _currentMaleColor = activeCardColor
+        : _currentMaleColor = inActiveCardColor;
+    _currentFemaleColor = genderSelected == Gender.female
+        ? _currentFemaleColor = activeCardColor
+        : _currentFemaleColor = inActiveCardColor;
   }
 }
 
