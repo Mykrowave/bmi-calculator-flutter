@@ -1,4 +1,6 @@
 import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/models/Results.dart';
+import 'package:bmi_calculator/resultspage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'bmiwidget.dart';
@@ -148,7 +150,7 @@ class _InputPageState extends State<InputPage> {
                                 iconData: FontAwesomeIcons.minus,
                                 onPressedHandler: () {
                                   setState(() {
-                                   incrementWeight(-1); 
+                                    incrementWeight(-1);
                                   });
                                 },
                               ),
@@ -189,7 +191,7 @@ class _InputPageState extends State<InputPage> {
                                 iconData: FontAwesomeIcons.minus,
                                 onPressedHandler: () {
                                   setState(() {
-                                   incrementAge(-1); 
+                                    incrementAge(-1);
                                   });
                                 },
                               ),
@@ -213,28 +215,42 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            Container(
-              color: Color(0xFFEb1555),
-              width: double.infinity,
-              margin: EdgeInsets.only(top: 8.0),
-              height: 80.0,
-              child: Center(
-                child: Text('CALCULATE'),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      BMIResult result = BMICalculator()
+                          .calculateResult(_sliderValue.round(), _weight);
+                      return ResultPage(
+                        bmiResult: result,
+                      );
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                color: Color(0xFFEb1555),
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 8.0),
+                height: 80.0,
+                child: Center(
+                  child: Text('CALCULATE'),
+                ),
               ),
             ),
           ],
         ));
   }
 
-  void incrementWeight(int value)
-  {
-    if (_weight <= 0 || _weight >= 1000)
-      return;
+  void incrementWeight(int value) {
+    if (_weight <= 0 || _weight >= 1000) return;
     _weight += value;
   }
-  void  incrementAge(int value){
-    if (_age <= 1 || _age >= 130)
-      return;
+
+  void incrementAge(int value) {
+    if (_age <= 1 || _age >= 130) return;
 
     _age += value;
   }
