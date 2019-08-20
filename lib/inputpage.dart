@@ -17,7 +17,6 @@ class _InputPageState extends State<InputPage> {
   Color _currentFemaleColor = inActiveCardColor;
   double _sliderValue = 200.0;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,17 +89,28 @@ class _InputPageState extends State<InputPage> {
                               )
                             ],
                           ),
-                          Slider(
-                            activeColor: Color(0xFFEb1555),
-                            //inactiveColor: inActiveCardColor,
-                            min: 100.0,
-                            max: 300.0,
-                            value: _sliderValue,
-                            onChanged: (sv) {
-                              setState(() {
-                               _sliderValue = sv; 
-                              });
-                            },
+                          SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              activeTrackColor: Color(0xFFEb1555),
+                              overlayColor: Color(0x29Eb1555),
+                              thumbColor: Color(0xFFEb1555),
+                              thumbShape: RoundSliderThumbShape(
+                                  enabledThumbRadius: 18.0),
+                              overlayShape: RoundSliderOverlayShape(
+                                overlayRadius: 30.0
+                              )
+                            ),
+                            child: Slider(
+                              //inactiveColor: inActiveCardColor,
+                              min: 100.0,
+                              max: 300.0,
+                              value: _sliderValue,
+                              onChanged: (sv) {
+                                setState(() {
+                                  _sliderValue = sv;
+                                });
+                              },
+                            ),
                           )
                         ],
                       ),
