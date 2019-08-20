@@ -29,34 +29,30 @@ class _InputPageState extends State<InputPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: BMIWidget(
+                      onTapCall: () {
                         setState(() {
                           genderWidgetSelected(Gender.male);
                         });
                       },
-                      child: BMIWidget(
-                        color: _currentMaleColor,
-                        child: IconContentWidget(
-                          iconData: FontAwesomeIcons.mars,
-                          contentTitle: 'MALE',
-                        ),
+                      color: _currentMaleColor,
+                      child: IconContentWidget(
+                        iconData: FontAwesomeIcons.mars,
+                        contentTitle: 'MALE',
                       ),
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: BMIWidget(
+                      onTapCall: () {
                         setState(() {
                           genderWidgetSelected(Gender.female);
                         });
                       },
-                      child: BMIWidget(
-                        color: _currentFemaleColor,
-                        child: IconContentWidget(
-                          iconData: FontAwesomeIcons.venus,
-                          contentTitle: 'FEMALE',
-                        ),
+                      color: _currentFemaleColor,
+                      child: IconContentWidget(
+                        iconData: FontAwesomeIcons.venus,
+                        contentTitle: 'FEMALE',
                       ),
                     ),
                   )
@@ -100,7 +96,6 @@ class _InputPageState extends State<InputPage> {
   }
 
   void genderWidgetSelected(Gender genderSelected) {
-    
     _currentMaleColor = genderSelected == Gender.male
         ? _currentMaleColor = activeCardColor
         : _currentMaleColor = inActiveCardColor;
